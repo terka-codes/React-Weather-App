@@ -20,10 +20,11 @@ export default function TopButtons() {
     ]
 
     return (
-        <div className="flex items-center justify-around my-6">
-            {cities.map((city) => (
-                <button className="text-white text-lg font-medium" key={city.id}>{city.title}</button>
+        <div className="flex items-center my-6">
+            {cities.map(city => (
+                <button className="text-white text-lg font-medium mr-8" key={city.id}>{city.title}</button>
             ))}
+            <button className="text-white text-lg font-medium">+ Add City</button>
         </div>
     )
 }
