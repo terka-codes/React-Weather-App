@@ -23,7 +23,7 @@ function TemperatureAndDetails({ weather: {
 				<img
 					src={iconUrlFromCode(icon)}
 					alt="clouds"
-					className="w-20"
+					className="w-30"
 				/>
 				<p className="text-5xl">{temp.toFixed()}°</p>
 

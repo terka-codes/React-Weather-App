@@ -12,12 +12,12 @@ function Forecast(props) {
 			<div className="flex items-center justify-between text-white">
 				{items.map(item => {
 					return (
-						<div className="flex flex-col items-center justify-center" key={items.title}>
+						<div className="flex flex-col items-center justify-center" key={item.title}>
 							<p className="font-light text-sm">{(item.title).slice(-5)}</p>
 							<img
 								src={iconUrlFromCode(item.icon)}
 								alt="clouds"
-								className="w-10"
+								className="w-14"
 							/>
 							<p className="font-medium">{(item.temp).toFixed()}°</p>
 						</div>

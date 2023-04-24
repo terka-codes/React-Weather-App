@@ -13,14 +13,11 @@ const getWeatherData = (infoType, searchParams) => {
     // searchParams is an object with key value pairs and appids just adds the key
     url.search = new URLSearchParams({ ...searchParams, appid: API_KEY })
 
-    console.log(url)
-
     return fetch(url)
         .then(response => response.json())
 }
 
 const formatForecastWeather = (data) => {
-    console.log(data)
     let { timezone, daily, hourly } = data
     daily = daily.slice(1, 6).map(day => {
         return {

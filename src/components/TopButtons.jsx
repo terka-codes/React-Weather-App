@@ -1,9 +1,9 @@
-export default function TopButtons() {
+export default function TopButtons({ setQuery }) {
 
     const cities = [
         {
             id: 1,
-            title: "New York"
+            title: "London"
         },
         {
             id: 2,
@@ -17,14 +17,30 @@ export default function TopButtons() {
             id: 4,
             title: "Berlin"
         },
+        {
+            id: 5,
+            title: "Tokyo"
+        },
+        {
+            id: 6,
+            title: "Rio"
+        },
     ]
 
     return (
-        <div className="flex items-center my-6">
+        <div className="flex items-center justify-between my-6">
             {cities.map(city => (
-                <button className="text-white text-lg font-medium mr-8" key={city.id}>{city.title}</button>
-            ))}
-            <button className="text-white text-lg font-medium">+ Add City</button>
-        </div>
+                <button
+                    className="text-white text-lg font-medium mr-8"
+                    key={city.id}
+                    onClick={() => setQuery({ q: city.title })}
+                >
+                    {city.title}
+                </button>
+            ))
+            }
+            {/* ADD this later
+            <button className="text-white text-lg font-medium">+ Add City</button> */}
+        </div >
     )
 }

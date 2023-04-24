@@ -24,26 +24,60 @@ function App() {
 		fetchWeather()
 	}, [query, units]) // chnage on location or units change
 
-	return (
-		<div className="mx-auto max-w-screen-md mt-4 py-5 px-32 bg-gradient-to-br from-cyan-700 to-blue-700 h-fit shadow-xl shadow-gray-400">
-			<TopButtons />
-			<Inputs />
+	const [backgroundImage, setBackgroundImage] = useState("")
 
-			{weather && (
-				<div>
-					<TimeAndLocation weather={weather} />
-					<TemperatureAndDetails weather={weather} />
-					<Forecast
-						title="hourly forecast"
-						items={weather.hourly}
-					/>
-					<Forecast
-						title="daily forecast"
-						items={weather.daily}
-					/>
-				</div>
-			)}
-		</div>
+	useEffect(() => {
+		setBackground().then((url) => setBackgroundImage(url))
+	}, [weather, units])
+
+	const setBackground = async () => {
+		try {
+			const response = await fetch(
+				`https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=${weather.details}`
+			)
+			const data = await response.json()
+			const backgroundImageUrl = data.urls.regular;
+			return backgroundImageUrl;
+		} catch (error) {
+			console.error(error)
+		}
+	}
+
+	return (
+		<div
+			className={`mx-auto max-w-screen-md mt-4 py-5 px-32 bg-cover bg-center`}
+			style={{
+				background: `linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${backgroundImage})`,
+				backgroundSize: "cover",
+				backgroundRepeat: "no-repeat"
+			}}
+		>
+			<TopButtons
+				setQuery={setQuery}
+			/>
+			<Inputs
+				setQuery={setQuery}
+				units={units}
+				setUnits={setUnits}
+			/>
+
+			{
+				weather && (
+					<div>
+						<TimeAndLocation weather={weather} />
+						<TemperatureAndDetails weather={weather} />
+						<Forecast
+							title="hourly forecast"
+							items={weather.hourly}
+						/>
+						<Forecast
+							title="daily forecast"
+							items={weather.daily}
+						/>
+					</div>
+				)
+			}
+		</div >
 	)
 }
 
