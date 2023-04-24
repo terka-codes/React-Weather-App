@@ -7,37 +7,41 @@ import {
 	UilSun,
 	UilSunset,
 } from '@iconscout/react-unicons';
+import { formatToLocalTime, iconUrlFromCode } from "../services/weatherService";
 
-function TemperatureAndDetails() {
+function TemperatureAndDetails({ weather: {
+	details, icon, temp, temp_min, temp_max, sunrise, sunset, speed,
+	humidity, feels_like, timezone
+} }) {
 	return (
 		<div>
 			<div className="flex items-center justify-center py-6 text-xl text-cyan-300/90">
-				<p>Cloudy or whatever</p>
+				<p>{details}</p>
 			</div>
 
 			<div className="flex items-center justify-between py-3 text-white">
 				<img
-					src="https://img.icons8.com/ios/50/000000/clouds.png"
+					src={iconUrlFromCode(icon)}
 					alt="clouds"
 					className="w-20"
 				/>
-				<p className="text-5xl">34°</p>
+				<p className="text-5xl">{temp.toFixed()}°</p>
 
 				<div className="flex flex-col space-y-2">
 					<div className="flex font-light text-sm items-center justify-center">
 						<UilTemperature size={18} className="mr-1" />
 						<p>Real feel:</p>
-						<span className="font-medium ml-1">32°</span>
+						<span className="font-medium ml-1">{feels_like.toFixed()}°</span>
 					</div>
 					<div className="flex font-light text-sm items-center justify-center">
 						<UilTear size={18} className="mr-1" />
 						<p>Humididy:</p>
-						<span className="font-medium ml-1">65%</span>
+						<span className="font-medium ml-1">{humidity.toFixed()}%</span>
 					</div>
 					<div className="flex font-light text-sm items-center justify-center">
 						<UilWind size={18} className="mr-1" />
 						<p>Wind:</p>
-						<span className="font-medium ml-1">11km/h</span>
+						<span className="font-medium ml-1">{speed.toFixed(1)}km/h</span>
 					</div>
 				</div>
 			</div>
@@ -45,22 +49,22 @@ function TemperatureAndDetails() {
 			<div className="flex items-center justify-between space-x-2 text-white text-sm py-3 gap-0.5 w-full">
 				<UilSun size={18} />
 				<p className="font-extralight whitespace-nowrap">
-					Sunrise: <span className="font-normal">6:00</span>
+					Sunrise: <span className="font-normal">{formatToLocalTime(sunrise, timezone).slice(-5)}</span>
 				</p>
 				<p className="font-extralight whitespace-nowrap">|</p>
 				<UilSunset size={18} />
 				<p className="font-extralight">
-					Sunset: <span className="font-normal">18:00</span>
+					Sunset: <span className="font-normal">{formatToLocalTime(sunset, timezone).slice(-5)}</span>
 				</p>
 				<p className="font-extralight">|</p>
 				<UilSun size={18} />
 				<p className="font-extralight whitespace-nowrap">
-					Sunrise: <span className="font-normal">20°</span>
+					High: <span className="font-normal">{temp_max.toFixed()}°</span>
 				</p>
 				<p className="font-extralight">|</p>
 				<UilSun size={18} />
 				<p className="font-extralight whitespace-nowrap">
-					Sunrise: <span className="font-normal">13°</span>
+					Low: <span className="font-normal">{temp_min.toFixed()}°</span>
 				</p>
 			</div>
 		</div>

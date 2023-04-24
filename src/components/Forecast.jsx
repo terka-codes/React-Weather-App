@@ -1,61 +1,29 @@
-function Forecast({ title }) {
+import { iconUrlFromCode } from "../services/weatherService";
+
+function Forecast(props) {
+	const { title, items } = props
 	return (
-		<div>
+		<div className="mb-10">
 			<div className="flex items-center justify-start mt-6">
 				<p className="text-white font-medium uppercase">{title}</p>
 			</div>
 			<hr className="my-2" />
 
 			<div className="flex items-center justify-between text-white">
-				<div className="flex flex-col items-center justify-center">
-					<p className="font-light text-sm">12:01</p>
-					<img
-						src="https://img.icons8.com/ios/50/000000/clouds.png"
-						alt="clouds"
-						className="w-10"
-					/>
-					<p className="font-medium">22°</p>
-				</div>
+				{items.map(item => {
+					return (
+						<div className="flex flex-col items-center justify-center" key={items.title}>
+							<p className="font-light text-sm">{(item.title).slice(-5)}</p>
+							<img
+								src={iconUrlFromCode(item.icon)}
+								alt="clouds"
+								className="w-10"
+							/>
+							<p className="font-medium">{(item.temp).toFixed()}°</p>
+						</div>
+					)
+				})}
 
-				<div className="flex flex-col items-center justify-center">
-					<p className="font-light text-sm">12:01</p>
-					<img
-						src="https://img.icons8.com/ios/50/000000/clouds.png"
-						alt="clouds"
-						className="w-10"
-					/>
-					<p className="font-medium">22°</p>
-				</div>
-
-				<div className="flex flex-col items-center justify-center">
-					<p className="font-light text-sm">12:01</p>
-					<img
-						src="https://img.icons8.com/ios/50/000000/clouds.png"
-						alt="clouds"
-						className="w-10"
-					/>
-					<p className="font-medium">22°</p>
-				</div>
-
-				<div className="flex flex-col items-center justify-center">
-					<p className="font-light text-sm">12:01</p>
-					<img
-						src="https://img.icons8.com/ios/50/000000/clouds.png"
-						alt="clouds"
-						className="w-10"
-					/>
-					<p className="font-medium">22°</p>
-				</div>
-
-				<div className="flex flex-col items-center justify-center">
-					<p className="font-light text-sm">12:01</p>
-					<img
-						src="https://img.icons8.com/ios/50/000000/clouds.png"
-						alt="clouds"
-						className="w-10"
-					/>
-					<p className="font-medium">22°</p>
-				</div>
 			</div>
 		</div>
 	);

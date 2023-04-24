@@ -1,18 +1,21 @@
-function TimeAndLocation() {
-  return (
-    <div>
-        <div className="flex items-center justify-center my-6">
-            <p className="text-white text-xl font-extralight">
-                Tuesday, 31 May 2022 | Local time: 12:00
-            </p>
+import { formatToLocalTime } from "../services/weatherService"
+
+function TimeAndLocation({ weather: { dt, timezone, name, country } }) {
+    console.log(dt, timezone, name, country)
+    return (
+        <div>
+            <div className="flex items-center justify-center my-6">
+                <p className="text-white text-xl font-extralight">
+                    {formatToLocalTime(dt, timezone)}
+                </p>
+            </div>
+            <div className="flex items-center justify-center my-3">
+                <p className="text-white text-3xl font-medium">
+                    {`${name}, ${country}`}
+                </p>
+            </div>
         </div>
-        <div className="flex items-center justify-center my-3">
-            <p className="text-white text-3xl font-medium">
-                New York, NY
-            </p>
-        </div>
-    </div>
-  )
+    )
 }
 
 export default TimeAndLocation
